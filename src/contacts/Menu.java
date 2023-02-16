@@ -11,8 +11,8 @@ public class Menu {
 
         public static void runMenu() {
             String input = null;
-            while("exit".equals(input)) {
-                System.out.print("Enter action (add, remove, edit, count, list, exit):");
+            while(true) {
+                System.out.print("Enter action (add, remove, edit, count, list, exit): ");
                 input = getInput();
                 switch (input) {
                     case "add" : addRecord();
@@ -44,7 +44,7 @@ public class Menu {
         record.setName(getInput());
         System.out.print("Enter the surname: ");
         record.setSurname(getInput());
-        System.out.println("Enter the number: ");
+        System.out.print("Enter the number: ");
         record.setPhoneNumber(getInput());
 
         contacts.add(record);
@@ -64,26 +64,26 @@ public class Menu {
 
     private static void editRecord() {
         if (contacts.size() == 0) {
-            System.out.println("No records to remove!");
+            System.out.println("No records to edit!");
         } else {
             printContacts();
             System.out.print("Select a record: ");
-            int index = Integer.parseInt(getInput());
+            int index = Integer.parseInt(getInput()) - 1;
             System.out.print("Select a field (name, surname, number): ");
             String field = getInput();
             switch (field) {
                 case "name" :
-                    System.out.print("Enter name");
+                    System.out.print("Enter name: ");
                     contacts.get(index).setName(getInput());
                     System.out.println("The record updated!");
                     break;
                 case "surname" :
-                    System.out.println("Enter surname");
+                    System.out.print("Enter surname: ");
                     contacts.get(index).setSurname(getInput());
                     System.out.println("The record updated!");
                     break;
                 case "number" :
-                    System.out.println("Enter number");
+                    System.out.print("Enter number: ");
                     contacts.get(index).setPhoneNumber(getInput());
                     System.out.println("The record updated!");
                     break;
@@ -98,7 +98,12 @@ public class Menu {
     }
 
     private static void printContacts() {
-        contacts.forEach(x -> System.out.printf("%d. %s%n", contacts.indexOf(x) + 1, x.toString()));
+            if (contacts.size() == 0) {
+                System.out.println("No records to show!");
+            } else {
+                contacts.forEach(x -> System.out.printf("%d. %s%n", contacts.indexOf(x) + 1, x.toString()));
+            }
+
     }
 
 }
