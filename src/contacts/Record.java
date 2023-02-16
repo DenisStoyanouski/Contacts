@@ -38,7 +38,7 @@ class Record {
     }
 
     private boolean isValidPhoneNumber(String phoneNumber) {
-        Pattern pattern = Pattern.compile("\\+?(\\([\\da-zA-Z]\\))?(\\s|-)");
+        Pattern pattern = Pattern.compile("^\\+?(\\(\\w+\\)|\\w+[\\s-]\\(\\w{2,}\\)|\\w+)([\\s-]\\w{2,})*");
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
     }
