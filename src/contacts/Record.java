@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 class Record {
     private String name;
     private String surname;
-    private String phoneNumber = "[no number]";
+    private String phoneNumber = "";
 
     public String getName() {
         return name;
@@ -33,6 +33,7 @@ class Record {
          this.phoneNumber = phoneNumber;
         } else {
             System.out.println("Wrong number format!");
+            this.phoneNumber = "[no number]";
         }
     }
 
@@ -40,6 +41,10 @@ class Record {
         Pattern pattern = Pattern.compile("\\+?(\\([\\da-zA-Z]\\))?(\\s|-)");
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
+    }
+
+    private boolean hasNumber() {
+        return !getPhoneNumbers().isEmpty() || !"[no number]".equals(getPhoneNumbers());
     }
 
     @Override
