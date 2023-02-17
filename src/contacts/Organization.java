@@ -11,11 +11,11 @@ public class Organization extends Record{
     }
 
     public String getOrganizationName() {
-        return getOrganizationName();
+        return organizationName;
     }
 
     public String getAddress() {
-        return getAddress();
+        return address;
     }
 
     @Override
@@ -24,11 +24,13 @@ public class Organization extends Record{
     }
 
     public void setOrganizationName(String organizationName) {
-        setOrganizationName(organizationName);
+        this.organizationName = organizationName;
+        super.setTimeEdited();
     }
 
     public void setAddress(String address) {
-        setAddress(address);
+        this.address = address;
+        super.setTimeEdited();
     }
 
 }

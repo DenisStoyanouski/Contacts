@@ -10,19 +10,19 @@ public class Person extends Record{
     private String gender;
 
     public String getName() {
-        return getName();
+        return name;
     }
 
     public String getSurname() {
-        return getSurname();
+        return surname;
     }
 
     public LocalDate getBirthDate() {
-        return getBirthDate();
+        return birthDate;
     }
 
     public String getGender() {
-        return getGender();
+        return gender;
     }
 
     public String getPhoneNumber() {
@@ -30,11 +30,14 @@ public class Person extends Record{
     }
 
     public void setName(String name) {
-        setName(name);
+        this.name = name;
+        super.setTimeEdited();
+
     }
 
     public void setSurname(String surname) {
-        setSurname(surname);
+        this.surname = surname;
+        super.setTimeEdited();
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -42,12 +45,14 @@ public class Person extends Record{
     }
 
     public void setBirthDate(LocalDate birthDate) {
-        setBirthDate(birthDate);
+        this.birthDate = this.birthDate;
+        super.setTimeEdited();
     }
 
 
     public void setGender(String gender) {
-        setGender(gender);
+        this.gender = gender;
+        super.setTimeEdited();
     }
 
     @Override
