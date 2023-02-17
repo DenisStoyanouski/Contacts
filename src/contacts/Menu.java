@@ -38,7 +38,7 @@ public class Menu {
     }
 
     private static void addRecord() {
-        Record record = new Record();
+        Person record = new Person();
 
         System.out.print("Enter the name: ");
         record.setName(getInput());
@@ -74,12 +74,12 @@ public class Menu {
             switch (field) {
                 case "name" :
                     System.out.print("Enter name: ");
-                    contacts.get(index).setName(getInput());
+                    ((Person) contacts.get(index)).setName(getInput());
                     System.out.println("The record updated!");
                     break;
                 case "surname" :
                     System.out.print("Enter surname: ");
-                    contacts.get(index).setSurname(getInput());
+                    ((Person) contacts.get(index)).setSurname(getInput());
                     System.out.println("The record updated!");
                     break;
                 case "number" :
