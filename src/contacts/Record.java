@@ -1,12 +1,22 @@
 package contacts;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Record {
     private String name;
     private String surname;
+
+    private LocalDate birthDate;
+
+    private String gender;
     private String phoneNumber = "";
+
+    private String organizationName;
+
+    private String address;
+
 
     public String getName() {
         return name;
@@ -18,6 +28,26 @@ class Record {
 
     public String getPhoneNumbers() {
         return phoneNumber;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public void setName(String name) {
@@ -35,6 +65,22 @@ class Record {
             System.out.println("Wrong number format!");
             this.phoneNumber = "[no number]";
         }
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     private boolean isValidPhoneNumber(String phoneNumber) {

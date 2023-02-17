@@ -57,7 +57,7 @@ public class Menu {
         } else {
             printContacts();
             System.out.print("Select a record: ");
-            contacts.remove(Integer.parseInt(getInput()));
+            contacts.remove(Integer.parseInt(getInput()) - 1);
             System.out.println("The record removed!");
         }
     }
