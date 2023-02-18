@@ -33,19 +33,20 @@ public class Menu {
             }
         }
 
-    private static String getInput() {
+    static String getInput() {
         return scanner.nextLine().trim();
     }
 
     private static void addRecord() {
-        Person record = new Person();
-        System.out.print("Enter the name: ");
-        record.setName(getInput());
-        System.out.print("Enter the surname: ");
-        record.setSurname(getInput());
-        System.out.print("Enter the number: ");
-        record.setPhoneNumber(getInput());
-
+        System.out.println("Enter the type (person, organization): ");
+        Record record = null;
+        String type = getInput();
+        if ("person".equals(type)) {
+            record = new PersonFactory().createRecord();
+        }
+        if ("organization".equals(type)) {
+            record = new OrganizationFactory().createRecord();
+        }
         contacts.add(record);
         System.out.println("The record added.");
     }
