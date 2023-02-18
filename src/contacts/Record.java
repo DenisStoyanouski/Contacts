@@ -1,6 +1,5 @@
 package contacts;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,11 +33,19 @@ class Record {
         return matcher.matches();
     }
 
-    private boolean hasNumber() {
+    protected boolean hasNumber() {
         return !getPhoneNumber().isEmpty() || !"[no number]".equals(getPhoneNumber());
     }
 
     protected void setTimeEdited(){
         timeEdited = LocalDateTime.now();
+    }
+
+    protected String getTimeCreated() {
+        return timeCreated.toString();
+    }
+
+    protected String getTimeEdited() {
+        return timeEdited.toString();
     }
 }

@@ -25,9 +25,6 @@ public class Person extends Record{
         return gender;
     }
 
-    public String getPhoneNumber() {
-        return super.getPhoneNumber();
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -40,9 +37,6 @@ public class Person extends Record{
         super.setTimeEdited();
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        super.setPhoneNumber(phoneNumber);
-    }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = this.birthDate;
@@ -57,6 +51,12 @@ public class Person extends Record{
 
     @Override
     public String toString() {
-        return  name + " " + surname + ", " + super.getPhoneNumber();
+        return  "Name: " + getName() + "\n" +
+                "Surname: " + getSurname() + "\n" +
+                "Birth date: " + getBirthDate() + "\n" +
+                "Gender: " + getGender() + "\n" +
+                "Number: " + getPhoneNumber() + "\n" +
+                "Time created: " + getTimeCreated() + "\n" +
+                "Time last edit: " + getTimeEdited() + "\n";
     }
 }

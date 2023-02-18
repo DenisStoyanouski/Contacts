@@ -39,7 +39,6 @@ public class Menu {
 
     private static void addRecord() {
         Person record = new Person();
-
         System.out.print("Enter the name: ");
         record.setName(getInput());
         System.out.print("Enter the surname: ");
