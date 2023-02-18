@@ -49,6 +49,7 @@ class PersonFactory implements RecordFactory {
     }
 
     private void addPhoneNumber() {
+        System.out.print("Enter the number: ");
         person.setPhoneNumber(Menu.getInput());
     }
 }
@@ -83,4 +84,5 @@ class OrganizationFactory implements RecordFactory {
         System.out.print("Enter the number: ");
         organization.setPhoneNumber(Menu.getInput());
     }
+
 }

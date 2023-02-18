@@ -59,4 +59,8 @@ public class Person extends Record{
                 "Time created: " + getTimeCreated() + "\n" +
                 "Time last edit: " + getTimeEdited() + "\n";
     }
+
+    public String toTitle(){
+        return getName() + " " + getSurname();
+    }
 }

@@ -31,4 +31,8 @@ public class Organization extends Record{
                 "Time created: " + getTimeEdited() + "\n" +
                 "Time last edit: " + getTimeEdited() + "\n";
     }
+
+    public String toTitle() {
+        return getOrganizationName();
+    }
 }

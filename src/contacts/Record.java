@@ -42,10 +42,14 @@ class Record {
     }
 
     protected String getTimeCreated() {
-        return timeCreated.toString();
+        return timeCreated.withSecond(0).withNano(0).toString();
     }
 
     protected String getTimeEdited() {
-        return timeEdited.toString();
+        return timeEdited.withSecond(0).withNano(0).toString();
+    }
+
+    public String toTitle() {
+        return null;
     }
 }

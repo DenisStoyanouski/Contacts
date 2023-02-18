@@ -12,7 +12,7 @@ public class Menu {
         public static void runMenu() {
             String input = null;
             while(true) {
-                System.out.print("Enter action (add, remove, edit, count, list, exit): ");
+                System.out.print("Enter action (add, remove, edit, count, info, exit): ");
                 input = getInput();
                 switch (input) {
                     case "add" : addRecord();
@@ -23,7 +23,7 @@ public class Menu {
                         break;
                     case "count" : printCount();
                         break;
-                    case "list" : printContacts();
+                    case "info" : getInfo();
                     break;
                     case "exit" : return;
                     default:
@@ -43,9 +43,11 @@ public class Menu {
         String type = getInput();
         if ("person".equals(type)) {
             record = new PersonFactory().createRecord();
-        }
-        if ("organization".equals(type)) {
+        } else if ("organization".equals(type)) {
             record = new OrganizationFactory().createRecord();
+        } else {
+            System.out.println("Unknown type");
+            return;
         }
         contacts.add(record);
         System.out.println("The record added.");
@@ -101,9 +103,19 @@ public class Menu {
             if (contacts.size() == 0) {
                 System.out.println("No records to show!");
             } else {
-                contacts.forEach(x -> System.out.printf("%d. %s%n", contacts.indexOf(x) + 1, x.toString()));
+                contacts.forEach(x -> System.out.printf("%d. %s %n", contacts.indexOf(x) + 1, x.toTitle()));
             }
 
+    }
+
+    private static void getInfo() {
+        printContacts();
+        System.out.println("Enter index to show info: ");
+        try {
+            System.out.println(contacts.get(Integer.parseInt(getInput()) - 1).toString());
+        } catch (NumberFormatException e) {
+            System.out.println("Unknown index");
+        }
     }
 
 }
