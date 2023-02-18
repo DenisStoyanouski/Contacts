@@ -1,12 +1,13 @@
 package contacts;
 
-import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Person extends Record{
 
     private String name;
     private String surname;
-    private LocalDate birthDate;
+    private String birthDate;
     private String gender;
 
     public String getName() {
@@ -17,7 +18,7 @@ public class Person extends Record{
         return surname;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
@@ -38,14 +39,27 @@ public class Person extends Record{
     }
 
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = this.birthDate;
+    public void setBirthDate(String birthDate) {
+        Pattern pattern = Pattern.compile("\\d\\d\\d\\d-\\d\\d-\\d\\d");
+        Matcher matcher = pattern.matcher(birthDate);
+        if (matcher.matches()) {
+            this.birthDate = birthDate;
+        } else {
+            System.out.println("Bad birth date!");
+            this.birthDate = "[no data]";
+        }
+
         super.setTimeEdited();
     }
 
 
     public void setGender(String gender) {
-        this.gender = gender;
+        if ("M".equals(gender) || "F".equals(gender)) {
+            this.gender = gender;
+        } else {
+            System.out.println("Bad gender!");
+            this.gender = "[no data]";
+        }
         super.setTimeEdited();
     }
 

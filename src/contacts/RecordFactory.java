@@ -36,11 +36,8 @@ class PersonFactory implements RecordFactory {
 
     private void addBirthDate(){
         System.out.print("Enter the birth date: ");
-        try {
-            person.setBirthDate(LocalDate.parse(Menu.getInput()));
-        } catch (DateTimeException e) {
-            System.out.println("Bad birth date!");
-        }
+        person.setBirthDate(Menu.getInput());
+
     }
 
     private void addGender(){
