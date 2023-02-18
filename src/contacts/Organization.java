@@ -26,7 +26,8 @@ public class Organization extends Record{
 
     @Override
     public String toString() {
-        return  "Address: " + address + "\n" +
+        return  "Organization name: " + getOrganizationName() + "\n" +
+                "Address: " + getAddress() + "\n" +
                 "Number: "+ getPhoneNumber() + "\n" +
                 "Time created: " + getTimeEdited() + "\n" +
                 "Time last edit: " + getTimeEdited() + "\n";
