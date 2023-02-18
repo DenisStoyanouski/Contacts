@@ -38,7 +38,7 @@ public class Menu {
     }
 
     private static void addRecord() {
-        System.out.println("Enter the type (person, organization): ");
+        System.out.print("Enter the type (person, organization): ");
         Record record = null;
         String type = getInput();
         if ("person".equals(type)) {
@@ -71,26 +71,60 @@ public class Menu {
             printContacts();
             System.out.print("Select a record: ");
             int index = Integer.parseInt(getInput()) - 1;
-            System.out.print("Select a field (name, surname, number): ");
-            String field = getInput();
-            switch (field) {
-                case "name" :
-                    System.out.print("Enter name: ");
-                    ((Person) contacts.get(index)).setName(getInput());
-                    System.out.println("The record updated!");
-                    break;
-                case "surname" :
-                    System.out.print("Enter surname: ");
-                    ((Person) contacts.get(index)).setSurname(getInput());
-                    System.out.println("The record updated!");
-                    break;
-                case "number" :
-                    System.out.print("Enter number: ");
-                    contacts.get(index).setPhoneNumber(getInput());
-                    System.out.println("The record updated!");
-                    break;
-                default :
-                    System.out.println("Unknown field. Try again");
+
+            if ("Person".equals(contacts.get(index).getClass().getSimpleName())) {
+                Person person = (Person) contacts.get(index);
+                System.out.print("Select a field (name, surname, birth, gender, number): ");
+                String field = getInput();
+                switch (field) {
+                    case "name" :
+                        System.out.print("Enter name: ");
+                        person.setName(getInput());
+                        System.out.println("The record updated!");
+                        break;
+                    case "surname" :
+                        System.out.print("Enter surname: ");
+                        person.setSurname(getInput());
+                        System.out.println("The record updated!");
+                        break;
+                    case "birth" :
+                        System.out.print("Enter birth: ");
+                        person.setBirthDate(getInput());
+                        System.out.println("The record updated!");
+                        break;
+                    case "gender" :
+                        System.out.print("Enter gender: ");
+                        person.setGender(getInput());
+                        System.out.println("The record updated!");
+                        break;
+                    case "number" :
+                        System.out.print("Enter number: ");
+                        person.setPhoneNumber(getInput());
+                        System.out.println("The record updated!");
+                        break;
+                    default :
+                        System.out.println("Unknown field. Try again");
+                }
+
+                if ("Organization".equals(contacts.get(index).getClass().getSimpleName())) {
+                    Organization organization = (Organization) contacts.get(index);
+                    System.out.print("Select a field (address, number): ");
+                    String field1 = getInput();
+                    switch (field1) {
+                        case "address":
+                            System.out.print("Enter surname: ");
+                            organization.setAddress(getInput());
+                            System.out.println("The record updated!");
+                            break;
+                        case "number":
+                            System.out.print("Enter number: ");
+                            organization.setPhoneNumber(getInput());
+                            System.out.println("The record updated!");
+                            break;
+                        default:
+                            System.out.println("Unknown field. Try again");
+                    }
+                }
             }
         }
     }
@@ -109,13 +143,18 @@ public class Menu {
     }
 
     private static void getInfo() {
-        printContacts();
-        System.out.println("Enter index to show info: ");
-        try {
-            System.out.println(contacts.get(Integer.parseInt(getInput()) - 1).toString());
-        } catch (NumberFormatException e) {
-            System.out.println("Unknown index");
+        if (contacts.size() == 0) {
+            System.out.println("No records to show!");
+        } else {
+            printContacts();
+            System.out.println("Enter index to show info: ");
+            try {
+                System.out.println(contacts.get(Integer.parseInt(getInput()) - 1).toString());
+            } catch (NumberFormatException e) {
+                System.out.println("Unknown index");
+            }
         }
+
     }
 
 }

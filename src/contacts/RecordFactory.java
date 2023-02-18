@@ -1,8 +1,5 @@
 package contacts;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-
 public interface RecordFactory {
     Record createRecord();
 }
