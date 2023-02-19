@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Record {
+abstract class Record {
     private String phoneNumber = "";
     private LocalDateTime timeCreated;
     private LocalDateTime timeEdited;
@@ -52,4 +52,10 @@ class Record {
     public String toTitle() {
         return null;
     }
+
+    abstract String getFields();
+
+    abstract void changeField(String fieldName, String value);
+
+    abstract String returnFieldValue(String fieldName);
 }

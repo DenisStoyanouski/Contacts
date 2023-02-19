@@ -77,4 +77,39 @@ public class Person extends Record{
     public String toTitle(){
         return getName() + " " + getSurname();
     }
+
+    @Override
+    String getFields() {
+       return "(name, surname, birth, gender, number)";
+    }
+
+    @Override
+    public void changeField(String fieldName, String value) {
+        switch (fieldName) {
+            case "name" : setName(value);
+            break;
+            case "surname" : setSurname(value);
+            break;
+            case "birth" : setBirthDate(value);
+            break;
+            case "gender" : setGender(value);
+            break;
+            case "number" : setPhoneNumber(value);
+            break;
+            default: break;
+        }
+    }
+
+    @Override
+    public String returnFieldValue(String fieldName) {
+        switch (fieldName) {
+            case "name" : return getName();
+            case "surname" : return getSurname();
+            case "birth" : return getBirthDate();
+            case "gender" : return getGender();
+            case "number" : return getPhoneNumber();
+            default : break;
+        }
+        return "Unknown field Name";
+    }
 }

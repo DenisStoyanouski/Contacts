@@ -9,7 +9,7 @@ public class Menu {
 
         final static Scanner scanner = new Scanner(System.in);
 
-        public static void runMenu() {
+        public static void runMenu() throws ClassNotFoundException {
             String input = null;
             while(true) {
                 System.out.print("Enter action (add, remove, edit, count, info, exit): ");
@@ -73,56 +73,21 @@ public class Menu {
             int index = Integer.parseInt(getInput()) - 1;
             if ("Person".equals(contacts.get(index).getClass().getSimpleName())) {
                 Person person = (Person) contacts.get(index);
-                System.out.print("Select a field (name, surname, birth, gender, number): ");
+                System.out.printf("Select a field %s: ", person.getFields());
                 String field = getInput();
-                switch (field) {
-                    case "name" :
-                        System.out.print("Enter name: ");
-                        person.setName(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    case "surname" :
-                        System.out.print("Enter surname: ");
-                        person.setSurname(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    case "birth" :
-                        System.out.print("Enter birth: ");
-                        person.setBirthDate(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    case "gender" :
-                        System.out.print("Enter gender: ");
-                        person.setGender(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    case "number" :
-                        System.out.print("Enter number: ");
-                        person.setPhoneNumber(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    default :
-                        System.out.println("Unknown field. Try again");
-                }
+                System.out.printf("Enter %s: ", field);
+                String value = getInput();
+                person.changeField(field, value);
+                System.out.println("The record updated!\n");
             }
             if ("Organization".equals(contacts.get(index).getClass().getSimpleName())) {
                 Organization organization = (Organization) contacts.get(index);
-                System.out.print("Select a field (address, number): ");
+                System.out.printf("Select a field %s: ", organization.getFields());
                 String field1 = getInput();
-                switch (field1) {
-                    case "address":
-                        System.out.print("Enter address: ");
-                        organization.setAddress(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    case "number":
-                        System.out.print("Enter number: ");
-                        organization.setPhoneNumber(getInput());
-                        System.out.println("The record updated!\n");
-                        break;
-                    default:
-                        System.out.println("Unknown field. Try again");
-                }
+                System.out.printf("Enter %s: ", field1);
+                String value1 = getInput();
+                organization.changeField(field1, value1);
+                System.out.println("The record updated!\n");
             }
         }
     }

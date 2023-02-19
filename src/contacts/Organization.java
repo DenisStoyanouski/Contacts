@@ -1,6 +1,8 @@
 package contacts;
 
-public class Organization extends Record{
+import java.util.Arrays;
+
+public class Organization extends Record {
 
     private String organizationName;
     private String address;
@@ -35,5 +37,34 @@ public class Organization extends Record{
 
     public String toTitle() {
         return getOrganizationName();
+    }
+
+    @Override
+    String getFields() {
+        return "name, address, number";
+    }
+
+    @Override
+    public void changeField(String fieldName, String value) {
+        switch(fieldName) {
+            case "name" : setOrganizationName(value);
+            break;
+            case "address" : setAddress(value);
+            break;
+            case "number" : setPhoneNumber(value);
+            break;
+            default: break;
+        }
+    }
+
+    @Override
+    public String returnFieldValue(String fieldName) {
+        switch(fieldName) {
+            case "name" : return getOrganizationName();
+            case "address" : return getAddress();
+            case "number" : return getPhoneNumber();
+            default : break;
+        }
+        return "Unknown field";
     }
 }
