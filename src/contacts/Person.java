@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Person extends Record implements Serializable {
+public class Person extends Record {
 
     private String name;
     private String surname;

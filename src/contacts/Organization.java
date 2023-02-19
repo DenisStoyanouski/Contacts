@@ -3,7 +3,7 @@ package contacts;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Organization extends Record implements Serializable {
+public class Organization extends Record {
 
     private String organizationName;
     private String address;
