@@ -1,10 +1,11 @@
 package contacts;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-abstract class Record {
+abstract class Record implements Serializable {
     private String phoneNumber = "";
     private LocalDateTime timeCreated;
     private LocalDateTime timeEdited;

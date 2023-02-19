@@ -1,9 +1,10 @@
 package contacts;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Person extends Record{
+public class Person extends Record implements Serializable {
 
     private String name;
     private String surname;
@@ -40,7 +41,7 @@ public class Person extends Record{
 
 
     public void setBirthDate(String birthDate) {
-        Pattern pattern = Pattern.compile("\\d\\d\\d\\d-\\d\\d-\\d\\d");
+        Pattern pattern = Pattern.compile("(\\d\\d\\d\\d[-/.]\\d\\d[-/.]\\d\\d)|(\\d\\d[-/.]\\d\\d[-/.]\\d\\d\\d\\d)");
         Matcher matcher = pattern.matcher(birthDate);
         if (matcher.matches()) {
             this.birthDate = birthDate;
@@ -54,7 +55,9 @@ public class Person extends Record{
 
 
     public void setGender(String gender) {
-        if ("M".equals(gender) || "F".equals(gender)) {
+        Pattern pattern = Pattern.compile("[M|F]");
+        Matcher matcher = pattern.matcher(gender);
+        if (matcher.matches()) {
             this.gender = gender;
         } else {
             System.out.println("Bad gender!");

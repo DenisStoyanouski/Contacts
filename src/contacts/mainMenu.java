@@ -1,30 +1,27 @@
 package contacts;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
-        final static List<Record> contacts = new ArrayList<>();
+public class mainMenu {
+
 
         final static Scanner scanner = new Scanner(System.in);
 
-        public static void runMenu() throws ClassNotFoundException {
-            String input = null;
+        final static ContactsDB contactsDB = new ContactsDB("db.contacts");
+
+        public static void runMenu(){
+            String input;
             while(true) {
                 System.out.print("Enter action (add, remove, edit, count, info, exit): ");
                 input = getInput();
                 switch (input) {
-                    case "add" : addRecord();
+                    case "add" : ContactsDB.addContact();
                         break;
-                    case "remove" : removeRecord();
+                    case "list" : ContactsDB.printContacts();
                         break;
-                    case "edit" : editRecord();
+                    case "search" : editRecord();
                         break;
                     case "count" : printCount();
                         break;
-                    case "info" : getInfo();
-                    break;
                     case "exit" : return;
                     default:
                         System.out.println("Unknown command. Try again");
@@ -37,42 +34,26 @@ public class Menu {
         return scanner.nextLine().trim();
     }
 
-    private static void addRecord() {
-        System.out.print("Enter the type (person, organization): ");
-        Record record = null;
-        String type = getInput();
-        if ("person".equals(type)) {
-            record = new PersonFactory().createRecord();
-        } else if ("organization".equals(type)) {
-            record = new OrganizationFactory().createRecord();
-        } else {
-            System.out.println("Unknown type");
-            return;
-        }
-        contacts.add(record);
-        System.out.println("The record added.\n");
-    }
-
     private static void removeRecord() {
-        if (contacts.size() == 0) {
+        if (ContactsDB.count() == 0) {
             System.out.println("No records to remove!");
         } else {
-            printContacts();
+            ContactsDB.printContacts();
             System.out.print("Select a record: ");
-            contacts.remove(Integer.parseInt(getInput()) - 1);
+            ContactsDB.removeContactByIndex(Integer.parseInt(getInput()));
             System.out.println("The record removed!\n");
         }
     }
 
     private static void editRecord() {
-        if (contacts.size() == 0) {
+        if (ContactsDB.count() == 0) {
             System.out.println("No records to edit!");
         } else {
-            printContacts();
+            ContactsDB.printContacts();
             System.out.print("Select a record: ");
             int index = Integer.parseInt(getInput()) - 1;
-            if ("Person".equals(contacts.get(index).getClass().getSimpleName())) {
-                Person person = (Person) contacts.get(index);
+            if ("Person".equals(ContactsDB.getContactByIndex(index).getClass().getSimpleName())) {
+                Person person = (Person) ContactsDB.getContactByIndex(index);
                 System.out.printf("Select a field %s: ", person.getFields());
                 String field = getInput();
                 System.out.printf("Enter %s: ", field);
@@ -80,8 +61,8 @@ public class Menu {
                 person.changeField(field, value);
                 System.out.println("The record updated!\n");
             }
-            if ("Organization".equals(contacts.get(index).getClass().getSimpleName())) {
-                Organization organization = (Organization) contacts.get(index);
+            if ("Organization".equals(ContactsDB.getContactByIndex(index).getClass().getSimpleName())) {
+                Organization organization = (Organization) ContactsDB.getContactByIndex(index);
                 System.out.printf("Select a field %s: ", organization.getFields());
                 String field1 = getInput();
                 System.out.printf("Enter %s: ", field1);
@@ -93,25 +74,18 @@ public class Menu {
     }
 
     private static void printCount() {
-        System.out.printf("The Phone Book has %d records.%n", contacts.size());
-    }
-
-    private static void printContacts() {
-        if (contacts.size() == 0) {
-            System.out.println("No records to show!");
-        } else {
-            contacts.forEach(x -> System.out.printf("%d. %s %n", contacts.indexOf(x) + 1, x.toTitle()));
-        }
+        System.out.printf("The Phone Book has %d records.%n", ContactsDB.count());
     }
 
     private static void getInfo() {
-        if (contacts.size() == 0) {
+        if (ContactsDB.count() == 0) {
             System.out.println("No records to show!");
         } else {
-            printContacts();
+            ContactsDB.printContacts();
             System.out.print("Enter index to show info: ");
             try {
-                System.out.println(contacts.get(Integer.parseInt(getInput()) - 1).toString());
+                int index = Integer.parseInt(getInput());
+                System.out.println((ContactsDB.getContactByIndex(index)).toString());
             } catch (NumberFormatException e) {
                 System.out.println("Unknown index");
             }

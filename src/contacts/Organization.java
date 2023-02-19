@@ -1,8 +1,9 @@
 package contacts;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Organization extends Record {
+public class Organization extends Record implements Serializable {
 
     private String organizationName;
     private String address;

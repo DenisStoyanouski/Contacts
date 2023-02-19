@@ -23,28 +23,28 @@ class PersonFactory implements RecordFactory {
 
     private void addName(){
         System.out.print("Enter the name: ");
-        person.setName(Menu.getInput());
+        person.setName(mainMenu.getInput());
     }
 
     private void addSurname(){
         System.out.print("Enter the surname: ");
-        person.setSurname(Menu.getInput());
+        person.setSurname(mainMenu.getInput());
     }
 
     private void addBirthDate(){
         System.out.print("Enter the birth date: ");
-        person.setBirthDate(Menu.getInput());
+        person.setBirthDate(mainMenu.getInput());
 
     }
 
     private void addGender(){
         System.out.print("Enter the gender (M, F): ");
-        person.setGender(Menu.getInput());
+        person.setGender(mainMenu.getInput());
     }
 
     private void addPhoneNumber() {
         System.out.print("Enter the number: ");
-        person.setPhoneNumber(Menu.getInput());
+        person.setPhoneNumber(mainMenu.getInput());
     }
 }
 
@@ -66,17 +66,17 @@ class OrganizationFactory implements RecordFactory {
 
     private void addOrganizationName() {
         System.out.print("Enter the organization name: ");
-        organization.setOrganizationName(Menu.getInput());
+        organization.setOrganizationName(mainMenu.getInput());
     }
 
     private void addAddress() {
         System.out.print("Enter the address: ");
-        organization.setAddress(Menu.getInput());
+        organization.setAddress(mainMenu.getInput());
     }
 
     private void addPhoneNumber() {
         System.out.print("Enter the number: ");
-        organization.setPhoneNumber(Menu.getInput());
+        organization.setPhoneNumber(mainMenu.getInput());
     }
 
 }
