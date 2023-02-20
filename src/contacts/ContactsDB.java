@@ -1,6 +1,5 @@
 package contacts;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +8,6 @@ import java.util.List;
 public class ContactsDB implements Serializable {
 
     private List<Record> contacts = new ArrayList<>();
-
-    final private String fileName = "db.contacts";
 
     private static final long serialVersionUID = 1L;
 

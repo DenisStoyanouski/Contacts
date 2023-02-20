@@ -10,9 +10,13 @@ public class mainMenu {
 
         static ContactsDB contacts = new ContactsDB();
 
-        final static String fileName = "db.contacts";
+        private String fileName;
 
-        public static void runMenu(){
+        mainMenu(String fileName) {
+            this.fileName = fileName;
+        }
+
+        public void runMenu(){
             createDB();
             String input;
             while(true) {
@@ -40,16 +44,17 @@ public class mainMenu {
             }
         }
 
-    private static void createDB() {
-        File file = new File("./" + fileName);
-        if (!file.exists()) {
+    private void createDB() {
+        try {
+            File file = new File("./" + fileName);
+            if (!file.exists()) {throw new NullPointerException();}
+            contacts = (ContactsDB) SerializationUtils.deserialize(fileName);
+            System.out.println("open " + fileName + "\n");
+        } catch (IOException | ClassNotFoundException | NullPointerException e) {
             contacts = new ContactsDB();
-        } else {
-            try {
-                contacts = (ContactsDB) SerializationUtils.deserialize(fileName);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            fileName = "db.contacts";
+            File file = new File ("./" + fileName);
+            System.out.println("created " + fileName + "\n");
         }
     }
 
