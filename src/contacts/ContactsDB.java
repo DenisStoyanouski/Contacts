@@ -3,6 +3,8 @@ package contacts;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -52,8 +54,11 @@ public class ContactsDB implements Serializable {
 
     public List<Record> search(String query) {
         List<Record> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile(".*?" + query + ".*?", Pattern.CASE_INSENSITIVE);
+
         for(Record record : contacts) {
-            if(record.returnFieldValue("name").matches(query)) {
+            Matcher matcher = pattern.matcher(record.valuesAllFieldsToOneString());
+            if(matcher.matches()) {
                 result.add(record);
             }
         }

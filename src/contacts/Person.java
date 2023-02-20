@@ -115,4 +115,9 @@ public class Person extends Record {
         }
         return "Unknown field Name";
     }
+
+    @Override
+    String valuesAllFieldsToOneString() {
+        return getName() + getSurname() + getGender() + getBirthDate() + getPhoneNumber();
+    }
 }

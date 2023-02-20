@@ -59,4 +59,6 @@ abstract class Record implements Serializable {
     abstract void changeField(String fieldName, String value);
 
     abstract String returnFieldValue(String fieldName);
+
+    abstract String valuesAllFieldsToOneString();
 }

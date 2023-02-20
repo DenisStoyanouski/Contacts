@@ -1,12 +1,9 @@
 package contacts;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class mainMenu {
 
@@ -62,10 +59,9 @@ public class mainMenu {
 
     private void search() {
         System.out.print("Enter search query: ");
-        Pattern pattern = Pattern.compile(".*?" + getInput() + ".*?", Pattern.CASE_INSENSITIVE);
-        List<Record> result = contacts.search(pattern.toString());
+        List<Record> result = contacts.search(getInput());
         System.out.printf("Found %d results:%n", result.size());
-        result.forEach(x -> System.out.println((result.indexOf(x) + 1) + ". " + x.returnFieldValue("name")));
+        result.forEach(x -> System.out.println((result.indexOf(x) + 1) + ". " + x.toTitle()));
         System.out.println();
         while(true) {
             System.out.print("Enter action ([number], back, again): ");
@@ -105,8 +101,6 @@ public class mainMenu {
             System.out.println("open " + fileName + "\n");
         } catch (IOException | ClassNotFoundException | NullPointerException e) {
             contacts = new ContactsDB();
-            fileName = "db.contacts";
-            File file = new File ("./" + fileName);
             System.out.println("created " + fileName + "\n");
         }
     }

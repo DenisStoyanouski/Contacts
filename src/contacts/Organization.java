@@ -68,4 +68,9 @@ public class Organization extends Record {
         }
         return "Unknown field";
     }
+
+    @Override
+    String valuesAllFieldsToOneString() {
+        return getOrganizationName() + getAddress() + getPhoneNumber();
+    }
 }
