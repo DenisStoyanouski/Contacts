@@ -1,7 +1,12 @@
 package contacts;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class mainMenu {
 
@@ -10,7 +15,7 @@ public class mainMenu {
 
         static ContactsDB contacts = new ContactsDB();
 
-        private String fileName;
+        private static String fileName;
 
         mainMenu(String fileName) {
             this.fileName = fileName;
@@ -20,7 +25,7 @@ public class mainMenu {
             createDB();
             String input;
             while(true) {
-                System.out.print("Enter action (add, remove, edit, count, info, exit): ");
+                System.out.print("Enter action (add, list, search, count, exit): ");
                 input = getInput();
                 switch (input) {
                     case "add" : contacts.addContact();
@@ -30,9 +35,9 @@ public class mainMenu {
                                     e.printStackTrace();
                                 }
                         break;
-                    case "list" : contacts.printContacts();
+                    case "search" : search();
                         break;
-                    case "search" : editRecord();
+                    case "list" : getList();
                         break;
                     case "count" : printCount();
                         break;
@@ -43,6 +48,54 @@ public class mainMenu {
                 }
             }
         }
+
+    private void getList() {
+        contacts.printContacts();
+        System.out.print("Enter action ([number], back): ");
+        String input = getInput();
+        if (input.matches("\\d*?")) {
+            Record record = contacts.getContactByIndex(Integer.parseInt(input));
+            System.out.println(record.printAllFields());
+            recordMenu(record);
+        }
+    }
+
+    private void search() {
+        System.out.print("Enter search query: ");
+        Pattern pattern = Pattern.compile(".*?" + getInput() + ".*?", Pattern.CASE_INSENSITIVE);
+        List<Record> result = contacts.search(pattern.toString());
+        System.out.printf("Found %d results:%n", result.size());
+        result.forEach(x -> System.out.println((result.indexOf(x) + 1) + ". " + x.returnFieldValue("name")));
+        System.out.println();
+        while(true) {
+            System.out.print("Enter action ([number], back, again): ");
+            String command = getInput();
+            if(command.matches("\\d+")) {
+                Record record = contacts.getContactByName(result.get(Integer.parseInt(command) - 1).returnFieldValue("name"));
+                System.out.println(record.printAllFields());
+                recordMenu(record);
+                break;
+            }
+            if("again".equals(command)) {
+                search();
+            }
+            if ("back".equals(command)) {
+                break;
+            }
+        }
+    }
+
+
+    private static void recordMenu(Record record) {
+        System.out.print("Enter action (edit, delete, menu): ");
+        switch(getInput()) {
+            case "edit" : editRecord(record);
+            break;
+            case "delete" : removeRecord(record);
+            break;
+            case "menu" : break;
+        }
+    }
 
     private void createDB() {
         try {
@@ -62,63 +115,36 @@ public class mainMenu {
         return scanner.nextLine().trim();
     }
 
-    private static void removeRecord() {
-        if (contacts.count() == 0) {
-            System.out.println("No records to remove!");
-        } else {
-            contacts.printContacts();
-            System.out.print("Select a record: ");
-            contacts.removeContactByIndex(Integer.parseInt(getInput()));
-            System.out.println("The record removed!\n");
+    private static void removeRecord(Record record) {
+        contacts.removeContact(record);
+        try {
+            SerializationUtils.serialize(contacts, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private static void editRecord() {
+    private static void editRecord(Record record) {
         if (contacts.count() == 0) {
             System.out.println("No records to edit!");
         } else {
-            contacts.printContacts();
-            System.out.print("Select a record: ");
-            int index = Integer.parseInt(getInput()) - 1;
-            if ("Person".equals(contacts.getContactByIndex(index).getClass().getSimpleName())) {
-                Person person = (Person) contacts.getContactByIndex(index);
-                System.out.printf("Select a field %s: ", person.getFields());
-                String field = getInput();
-                System.out.printf("Enter %s: ", field);
-                String value = getInput();
-                person.changeField(field, value);
-                System.out.println("The record updated!\n");
-            }
-            if ("Organization".equals(contacts.getContactByIndex(index).getClass().getSimpleName())) {
-                Organization organization = (Organization) contacts.getContactByIndex(index);
-                System.out.printf("Select a field %s: ", organization.getFields());
-                String field1 = getInput();
-                System.out.printf("Enter %s: ", field1);
-                String value1 = getInput();
-                organization.changeField(field1, value1);
-                System.out.println("The record updated!\n");
-            }
+            System.out.printf("Select a field %s: ", record.getFields());
+            String field = getInput();
+            System.out.printf("Enter %s: ", field);
+            String value = getInput();
+            record.changeField(field, value);
+            System.out.println("Saved");
+            System.out.println(record.printAllFields());
         }
+        try {
+            SerializationUtils.serialize(contacts, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        recordMenu(record);
     }
 
     private static void printCount() {
         System.out.printf("The Phone Book has %d records.%n", contacts.count());
     }
-
-    private static void getInfo() {
-        if (contacts.count() == 0) {
-            System.out.println("No records to show!");
-        } else {
-            contacts.printContacts();
-            System.out.print("Enter index to show info: ");
-            try {
-                int index = Integer.parseInt(getInput());
-                System.out.println((contacts.getContactByIndex(index)).toString());
-            } catch (NumberFormatException e) {
-                System.out.println("Unknown index");
-            }
-        }
-
-    }
-
 }

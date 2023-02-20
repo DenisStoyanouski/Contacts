@@ -3,6 +3,7 @@ package contacts;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ContactsDB implements Serializable {
@@ -36,8 +37,27 @@ public class ContactsDB implements Serializable {
         return contacts.get(index - 1);
     }
 
+    public Record getContactByName(String name) {
+        return search(name).get(0);
+
+    }
+
     public void removeContactByIndex(int index) {
         contacts.remove(index - 1);
+    }
+
+    public void removeContact(Record record) {
+        contacts.remove(record);
+    }
+
+    public List<Record> search(String query) {
+        List<Record> result = new ArrayList<>();
+        for(Record record : contacts) {
+            if(record.returnFieldValue("name").matches(query)) {
+                result.add(record);
+            }
+        }
+       return result;
     }
 
     public void printContacts() {
@@ -45,6 +65,7 @@ public class ContactsDB implements Serializable {
             System.out.println("No records to show!");
         } else {
             contacts.forEach(x -> System.out.printf("%d. %s %n", contacts.indexOf(x) + 1, x.toTitle()));
+            System.out.println();
         }
     }
 

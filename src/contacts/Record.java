@@ -50,9 +50,9 @@ abstract class Record implements Serializable {
         return timeEdited.withSecond(0).withNano(0).toString();
     }
 
-    public String toTitle() {
-        return null;
-    }
+    abstract String printAllFields();
+
+    abstract String toTitle();
 
     abstract String getFields();
 

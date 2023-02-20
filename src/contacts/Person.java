@@ -67,7 +67,7 @@ public class Person extends Record {
     }
 
     @Override
-    public String toString() {
+    public String printAllFields() {
         return  "Name: " + getName() + "\n" +
                 "Surname: " + getSurname() + "\n" +
                 "Birth date: " + getBirthDate() + "\n" +

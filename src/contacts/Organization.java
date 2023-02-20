@@ -28,7 +28,7 @@ public class Organization extends Record {
     }
 
     @Override
-    public String toString() {
+    public String printAllFields() {
         return  "Organization name: " + getOrganizationName() + "\n" +
                 "Address: " + getAddress() + "\n" +
                 "Number: "+ getPhoneNumber() + "\n" +
